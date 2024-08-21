@@ -6,6 +6,12 @@
   betThisRound: number;
 }
 
+export interface LobbyPlayer {
+  id: string;
+  name: string;
+  socketId: string;
+}
+
 export enum Round {
   PreFlop = 'PreFlop',
   Flop = 'Flop',
@@ -20,5 +26,15 @@ export interface GameState {
   round: Round;
   currentBet: number;
   dealerPosition: number;
-  lastPlayerToAct: number;  // Add this line
+  lastPlayerToAct: number;
+  smallBlind: number; 
+  bigBlind: number;   
+}
+
+export interface LobbyState {
+  players: LobbyPlayer[];
+  minBuyIn: number;
+  smallBlind: number;
+  bigBlind: number;
+  hostId: string;
 }

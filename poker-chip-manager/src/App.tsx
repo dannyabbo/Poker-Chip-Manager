@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Game from './pages/Game'
+import CreateTable from './pages/CreateTable'
+import JoinTable from './pages/JoinTable'
+import Lobby from './pages/Lobby'
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState('light')
@@ -29,6 +32,9 @@ const App: React.FC = () => {
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/create-table" element={<CreateTable />} />
+          <Route path="/join-table" element={<JoinTable />} />
+          <Route path="/lobby/:id" element={<Lobby />} />
           <Route path="/game/:id" element={<Game />} />
         </Routes>
       </div>

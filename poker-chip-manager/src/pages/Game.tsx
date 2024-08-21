@@ -14,12 +14,15 @@ const Game: React.FC = () => {
     round: Round.PreFlop,
     currentBet: 0,
     dealerPosition: 0,
-    lastPlayerToAct: 0
+    lastPlayerToAct: 0,
+    smallBlind: 0,
+    bigBlind: 0
   })
   const [playerName, setPlayerName] = useState<string>('')
   const [betAmount, setBetAmount] = useState<number>(0)
 
   useEffect(() => {
+    console.log('Game component mounted')
     const newSocket = io('http://localhost:3001')
     setSocket(newSocket)
 
@@ -29,9 +32,11 @@ const Game: React.FC = () => {
     }
     setPlayerName(name)
 
+    console.log(`Joining game ${id} as ${name}`)
     newSocket.emit('joinGame', id, name)
 
     newSocket.on('updateGameState', (updatedGameState: GameState) => {
+      console.log('Received updated game state:', updatedGameState)
       setGameState(updatedGameState)
       // Reset bet amount when it's not player's turn
       if (updatedGameState.currentTurn !== newSocket.id) {
@@ -40,12 +45,14 @@ const Game: React.FC = () => {
     })
 
     return () => {
+      console.log('Game component unmounting, closing socket')
       newSocket.close()
     }
   }, [id, location.state])
 
   const placeBet = () => {
     if (socket && betAmount > 0) {
+      console.log(`Placing bet: ${betAmount}`)
       socket.emit('placeBet', { roomId: id, amount: betAmount })
       setBetAmount(0)
     }
@@ -53,12 +60,14 @@ const Game: React.FC = () => {
 
   const check = () => {
     if (socket) {
+      console.log('Checking')
       socket.emit('check', id)
     }
   }
 
   const fold = () => {
     if (socket) {
+      console.log('Folding')
       socket.emit('fold', id)
     }
   }
