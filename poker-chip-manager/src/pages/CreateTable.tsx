@@ -12,9 +12,8 @@ const CreateTable: React.FC = () => {
   const createTable = () => {
     const socket = io('http://localhost:3001');
     socket.emit('createLobby', { minBuyIn, smallBlind, bigBlind, playerName });
-    socket.on('lobbyCreated', ({ roomId, lobbyState }) => {
-      console.log('Lobby created:', roomId, lobbyState);
-      navigate(`/lobby/${roomId}`, { state: { lobbyState, playerName } });
+    socket.on('lobbyCreated', ({ roomId }) => {
+      navigate(`/lobby/${roomId}`, { state: { playerName } });
     });
   };
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import io from 'socket.io-client';
 
 const JoinTable: React.FC = () => {
   const navigate = useNavigate();
@@ -9,16 +8,7 @@ const JoinTable: React.FC = () => {
 
   const joinTable = () => {
     if (roomCode && playerName) {
-      const socket = io('http://localhost:3001');
-      socket.emit('joinLobby', { roomId: roomCode, playerName });
-      socket.on('lobbyJoined', (lobbyState) => {
-        console.log('Joined lobby:', roomCode, lobbyState);
-        navigate(`/lobby/${roomCode}`, { state: { lobbyState, playerName } });
-      });
-      socket.on('error', ({ message }) => {
-        console.error('Error joining lobby:', message);
-        alert(message);
-      });
+      navigate(`/lobby/${roomCode}`, { state: { playerName } });
     } else {
       alert("Please enter a room code and your name");
     }

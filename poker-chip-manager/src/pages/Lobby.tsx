@@ -17,53 +17,38 @@ const Lobby: React.FC = () => {
   const socketRef = useRef<Socket | null>(null);
   const [isHost, setIsHost] = useState(false);
   const playerName = location.state?.playerName || 'Anonymous';
-  const joinedRef = useRef(false);
 
   useEffect(() => {
-    console.log('Lobby component mounted');
+    socketRef.current = io('http://localhost:3001');
     
-    if (!joinedRef.current) {
-      socketRef.current = io('http://localhost:3001');
-      
-      console.log(`Emitting joinLobby event for room ${id} with player ${playerName}`);
-      socketRef.current.emit('joinLobby', { roomId: id, playerName });
+    socketRef.current.emit('joinLobby', { roomId: id, playerName });
 
-      socketRef.current.on('lobbyJoined', (updatedLobbyState: LobbyState) => {
-        console.log('Received lobbyJoined event:', updatedLobbyState);
-        setLobbyState(updatedLobbyState);
-        setIsHost(updatedLobbyState.hostId === playerName);
-        joinedRef.current = true;
-      });
+    socketRef.current.on('lobbyUpdated', (updatedLobbyState: LobbyState) => {
+      setLobbyState(updatedLobbyState);
+      setIsHost(updatedLobbyState.hostId === playerName);
+    });
 
-      socketRef.current.on('lobbyUpdated', (updatedLobbyState: LobbyState) => {
-        console.log('Received lobbyUpdated event:', updatedLobbyState);
-        setLobbyState(updatedLobbyState);
-        setIsHost(updatedLobbyState.hostId === playerName);
-      });
+    socketRef.current.on('gameStarted', (gameState: GameState) => {
+      navigate(`/game/${id}`, { state: { gameState, playerName } });
+    });
 
-      socketRef.current.on('gameStarted', (gameState: GameState) => {
-        console.log('Received gameStarted event:', gameState);
-        navigate(`/game/${id}`, { state: { gameState, playerName } });
-      });
-    }
+    socketRef.current.on('error', ({ message }) => {
+      alert(message);
+      navigate('/');
+    });
 
     return () => {
-      console.log('Lobby component unmounting, closing socket');
       if (socketRef.current) {
         socketRef.current.disconnect();
       }
-      joinedRef.current = false;
     };
   }, [id, navigate, playerName]);
 
   const startGame = () => {
     if (socketRef.current) {
-      console.log('Emitting startGame event');
       socketRef.current.emit('startGame', id);
     }
   };
-
-  console.log('Rendering Lobby component with state:', { lobbyState, isHost, playerName });
 
   return (
     <div className="container mx-auto p-4">
