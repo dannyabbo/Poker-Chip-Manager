@@ -95,8 +95,4 @@
 **/.pnp.*
 
 # Specific to your project structure
-/poker-chip-manager/node_modules
-/poker-chip-manager-backend/node_modules
-/poker-chip-manager/build
-/poker-chip-manager-backend/dist
 codebase.md
