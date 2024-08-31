@@ -16,7 +16,8 @@ export default function HomePage() {
           <span className="text-secondary text-base">.app</span>
         </h1>
         <p className="text-base-content mb-8 max-w-sm mx-auto">
-          Manage buy-ins, bets, and payouts with ease for your in-person texas hold'em games.
+          Manage buy-ins, bets, and payouts with ease for your in-person texas
+          hold'em games.
         </p>
         <div className="space-y-4">
           <button

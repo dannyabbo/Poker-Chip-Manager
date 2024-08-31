@@ -40,7 +40,7 @@ export default function CreateTable() {
     <div className="mx-auto">
       <div className="flex items-center mb-4 relative">
         <button
-          className="btn btn-sm normal-case absolute left-0"
+          className="btn btn-neutral btn-sm normal-case absolute left-0"
           onClick={() => router.push("/")}
         >
           <FontAwesomeIcon icon={faChevronLeft} className="" />

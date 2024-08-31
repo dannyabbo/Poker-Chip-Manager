@@ -25,12 +25,12 @@ export default function GamePage() {
   };
 
   return (
-    <div className="w-full max-w-md  mx-auto p-4">
+    <div className="w-full min-h-screen max-h-screen mx-auto p-4 max-w-md flex flex-col">
       <h2 className="text-2xl font-bold mb-6">
         <span className="">PotManager</span>
         <span className="text-secondary text-base">.app</span>
       </h2>
-      {renderContent()}
+      <div className="flex flex-col flex-grow">{renderContent()}</div>
     </div>
   );
 }
