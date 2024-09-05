@@ -9,7 +9,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+    <div className=" flex flex-grow min-h-svh flex-col items-center justify-center px-4">
       <div className="w-full max-w-md text-center">
         <h1 className="text-5xl font-bold mb-4">
           <span className="">PotManager</span>
@@ -17,7 +17,7 @@ export default function HomePage() {
         </h1>
         <p className="text-base-content mb-8 max-w-sm mx-auto">
           Manage buy-ins, bets, and payouts with ease for your in-person texas
-          hold'em games.
+          hold&apos;em games.
         </p>
         <div className="space-y-4">
           <button

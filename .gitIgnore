@@ -97,3 +97,4 @@
 # Specific to your project structure
 codebase.md
 /assets
+**/public
