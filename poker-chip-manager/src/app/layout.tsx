@@ -1,8 +1,6 @@
 import React from "react";
 import "@/styles/globals.css";
 import { Montserrat } from "next/font/google";
-import "../fontawesome";
-import OfflineDetector from "@/components/OfflineDetector";
 import { Metadata, Viewport } from "next";
 
 const montserrat = Montserrat({
@@ -63,9 +61,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="dim" className={montserrat.className}>
-      <body className="flex justify-center items-center">
-        <OfflineDetector>{children}</OfflineDetector>
-      </body>
+      <body className="flex justify-center items-center">{children}</body>
     </html>
   );
 }
